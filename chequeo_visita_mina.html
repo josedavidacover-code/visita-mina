@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#1F4E79">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Visita Mina">
+<title>Visita ARE-TB8-16011</title>
+<style>
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    background: #f4f5f7; color: #1a1a1a;
+    font-size: 15px; line-height: 1.4;
+    padding-bottom: 80px;
+    padding-top: env(safe-area-inset-top);
+  }
+  header {
+    position: sticky; top: 0; z-index: 100;
+    background: #1F4E79; color: white;
+    padding: 10px 14px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+  }
+  header h1 { margin: 0; font-size: 15px; font-weight: 700; }
+  header .sub { font-size: 11px; opacity: 0.85; margin-top: 2px; }
+  .bar { height: 3px; background: rgba(255,255,255,0.2); border-radius: 2px; margin-top: 6px; overflow: hidden; }
+  .bar-fill { height: 100%; background: #4ade80; width: 0%; transition: width 0.3s; }
+  .prog { font-size: 10px; opacity: 0.9; margin-top: 3px; display: flex; justify-content: space-between; }
+  .tools {
+    display: flex; gap: 5px; padding: 7px 10px;
+    background: white; border-bottom: 1px solid #e5e7eb;
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+    position: sticky; top: 56px; z-index: 90;
+  }
+  .tools button {
+    flex-shrink: 0; padding: 6px 10px;
+    border: 1px solid #d1d5db; background: white; color: #374151;
+    border-radius: 5px; font-size: 12px; font-weight: 500;
+    white-space: nowrap; cursor: pointer;
+    -webkit-appearance: none; appearance: none;
+  }
+  .tools button.primary { background: #1F4E79; color: white; border-color: #1F4E79; }
+  .tools button.danger { color: #b91c1c; border-color: #fecaca; }
+  .card {
+    background: white; margin: 8px;
+    border-radius: 8px; padding: 12px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  }
+  .card h2 {
+    font-size: 14px; margin: 0 0 10px;
+    color: #1F4E79; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.4px;
+  }
+  .field { margin-bottom: 10px; }
+  .field label {
+    display: block; font-size: 11px;
+    font-weight: 600; color: #4b5563;
+    margin-bottom: 3px;
+    text-transform: uppercase; letter-spacing: 0.3px;
+  }
+  .field input, .field textarea {
+    width: 100%; padding: 8px 10px;
+    border: 1px solid #d1d5db; border-radius: 5px;
+    font-size: 15px; font-family: inherit;
+    background: #f9fafb;
+    -webkit-appearance: none; appearance: none;
+  }
+  .field input:focus, .field textarea:focus {
+    outline: none; border-color: #1F4E79; background: white;
+  }
+  .field textarea { min-height: 50px; resize: vertical; }
+  section.sec {
+    background: white; margin: 8px;
+    border-radius: 8px; overflow: hidden;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  }
+  .sec-head {
+    background: #1F4E79; color: white;
+    padding: 11px 12px; cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center;
+    user-select: none; -webkit-user-select: none;
+  }
+  .sec-head h2 { font-size: 13px; margin: 0; font-weight: 700; flex: 1; padding-right: 8px; }
+  .sec-head .right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+  .badge { background: rgba(255,255,255,0.2); padding: 2px 7px; border-radius: 10px; font-size: 10px; font-weight: 600; }
+  .chev { font-size: 11px; transition: transform 0.2s; }
+  .sec.col .chev { transform: rotate(-90deg); }
+  .sec.col .sec-body { display: none; }
+  .subsec {
+    padding: 8px 12px 2px;
+    font-size: 11px; font-weight: 700;
+    color: #2E75B6; text-transform: uppercase; letter-spacing: 0.3px;
+    border-top: 1px solid #f3f4f6;
+    background: #fafbfc;
+  }
+  .subsec:first-child { border-top: none; }
+  .item { padding: 9px 12px 11px; border-top: 1px solid #f3f4f6; }
+  .item-text { font-size: 13.5px; line-height: 1.35; margin-bottom: 7px; color: #1f2937; }
+  .item-crit { background: #fef3c7; border-left: 3px solid #d97706; padding-left: 9px; }
+  .methods {
+    display: inline-flex; gap: 3px;
+    margin-right: 6px;
+    flex-wrap: wrap;
+  }
+  .m-tag {
+    display: inline-block;
+    background: #e5e7eb;
+    color: #4b5563;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 1px 5px;
+    border-radius: 3px;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    vertical-align: middle;
+  }
+  .m-vis { background: #dbeafe; color: #1e40af; }
+  .m-dron { background: #ddd6fe; color: #6b21a8; }
+  .m-gps { background: #d1fae5; color: #065f46; }
+  .m-crit { background: #d97706; color: white; }
+  .check-row { display: flex; gap: 5px; margin-bottom: 6px; }
+  .cb {
+    flex: 1; padding: 9px 4px;
+    border: 1.5px solid #d1d5db; background: white; color: #6b7280;
+    border-radius: 5px; font-size: 13px; font-weight: 700;
+    cursor: pointer; text-align: center;
+    -webkit-appearance: none; appearance: none;
+    min-height: 38px;
+  }
+  .cb:active { transform: scale(0.96); }
+  .cb.on-si { background: #16a34a; color: white; border-color: #16a34a; }
+  .cb.on-no { background: #dc2626; color: white; border-color: #dc2626; }
+  .cb.on-na { background: #6b7280; color: white; border-color: #6b7280; }
+  .obs-w { margin-top: 6px; }
+  .obs-l {
+    display: block; font-size: 10px; font-weight: 700;
+    color: #6b7280; text-transform: uppercase; letter-spacing: 0.3px;
+    margin-bottom: 3px;
+  }
+  .obs {
+    width: 100%; padding: 8px 10px;
+    border: 1.5px solid #d1d5db; border-radius: 5px;
+    font-size: 14px; font-family: inherit; background: #fafafa;
+    min-height: 38px; resize: vertical;
+    -webkit-appearance: none; appearance: none;
+  }
+  .obs:focus { outline: none; border-color: #1F4E79; background: white; }
+  .obs.has-content { background: #ecfdf5; border-color: #86efac; }
+  .ph-w { margin-top: 8px; }
+  .ph-l {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 10px; font-weight: 700; color: #6b7280;
+    text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 5px;
+  }
+  .ph-c { background: #1F4E79; color: white; padding: 2px 7px; border-radius: 9px; font-size: 9px; }
+  .ph-c.empty { background: #e5e7eb; color: #9ca3af; }
+  .ph-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin-bottom: 5px; }
+  .ph-t {
+    position: relative; aspect-ratio: 1;
+    background: #f3f4f6; border-radius: 5px;
+    overflow: hidden; border: 1.5px solid #d1d5db;
+  }
+  .ph-t img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .ph-t .del {
+    position: absolute; top: 3px; right: 3px;
+    background: rgba(220,38,38,0.95); color: white;
+    border: none; width: 22px; height: 22px;
+    border-radius: 50%; font-size: 13px; font-weight: 700;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    -webkit-appearance: none; appearance: none;
+  }
+  .ph-t .gps {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    color: white; font-size: 8px; padding: 7px 3px 2px;
+    text-align: center; font-weight: 600; line-height: 1.1;
+  }
+  .ph-t .gps.no { background: linear-gradient(transparent, rgba(217,119,6,0.85)); }
+  .ph-add {
+    background: white; color: #1F4E79;
+    border: 1.5px dashed #1F4E79; border-radius: 5px;
+    padding: 9px 12px; width: 100%;
+    font-size: 12px; font-weight: 700; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 5px;
+    -webkit-appearance: none; appearance: none;
+  }
+  .ph-add input { display: none; }
+  .alert {
+    background: #fef3c7; border-left: 3px solid #d97706;
+    padding: 9px 11px; margin: 8px;
+    border-radius: 0 5px 5px 0;
+    font-size: 12px; color: #78350f;
+  }
+  .save {
+    position: fixed; bottom: 12px; right: 12px;
+    background: #16a34a; color: white;
+    padding: 7px 12px; border-radius: 18px;
+    font-size: 12px; font-weight: 600;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s; z-index: 200;
+  }
+  .save.show { opacity: 1; }
+  .save.proc { background: #1F4E79; }
+  .fab {
+    position: fixed; bottom: 12px; left: 12px;
+    background: #1F4E79; color: white;
+    width: 42px; height: 42px;
+    border-radius: 50%; border: none;
+    font-size: 20px; cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    z-index: 150;
+    -webkit-appearance: none; appearance: none;
+  }
+  .modal {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: none; align-items: center; justify-content: center;
+    z-index: 300; padding: 14px;
+  }
+  .modal.show { display: flex; }
+  .mbox {
+    background: white; border-radius: 10px;
+    padding: 16px; max-width: 380px; width: 100%;
+    max-height: 88vh; overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .mbox h3 { margin: 0 0 10px; color: #1F4E79; font-size: 16px; }
+  .mbox p { font-size: 13px; line-height: 1.4; color: #4b5563; margin: 0 0 10px; }
+  .mfield { margin-bottom: 10px; }
+  .mfield label {
+    display: block; font-size: 11px;
+    font-weight: 600; color: #4b5563; margin-bottom: 3px;
+    text-transform: uppercase; letter-spacing: 0.3px;
+  }
+  .mfield input {
+    width: 100%; padding: 8px 10px;
+    border: 1px solid #d1d5db; border-radius: 5px;
+    font-size: 14px;
+    -webkit-appearance: none; appearance: none;
+  }
+  .mprev { width: 100%; max-height: 180px; object-fit: contain; border-radius: 6px; margin-bottom: 10px; background: #f3f4f6; }
+  .macts { display: flex; gap: 6px; margin-top: 12px; justify-content: flex-end; flex-wrap: wrap; }
+  .macts button {
+    padding: 8px 14px; border-radius: 5px;
+    border: 1px solid #d1d5db; background: white;
+    cursor: pointer; font-weight: 600; font-size: 13px;
+    -webkit-appearance: none; appearance: none;
+  }
+  .macts button.primary { background: #1F4E79; color: white; border-color: #1F4E79; }
+  .macts button.danger { background: #dc2626; color: white; border-color: #dc2626; }
+  .gpsst { background: #f3f4f6; padding: 7px 9px; border-radius: 5px; font-size: 12px; color: #4b5563; margin-bottom: 10px; }
+  .gpsst.ok { background: #d1fae5; color: #065f46; }
+  .gpsst.err { background: #fee2e2; color: #991b1b; }
+  .gpsst.load { background: #dbeafe; color: #1e40af; }
+  @media print {
+    header, .tools, .fab, .save { display: none !important; }
+    .sec.col .sec-body { display: block !important; }
+    .item { page-break-inside: avoid; }
+    body { background: white; padding: 0; }
+    section.sec { box-shadow: none; border: 1px solid #ccc; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Visita técnica – ARE-TB8-16011</h1>
+  <div class="sub">Cáceres y Caucasia, Antioquia · CORANTIOQUIA</div>
+  <div class="bar"><div class="bar-fill" id="bf"></div></div>
+  <div class="prog">
+    <span id="pt">0 de 0</span>
+    <span id="pp">0%</span>
+  </div>
+</header>
+
+<div class="tools">
+  <button class="primary" onclick="exportPDF()">📄 Exportar PDF</button>
+  <button onclick="collapseAll()">⊟ Colapsar</button>
+  <button onclick="expandAll()">⊞ Expandir</button>
+  <button class="danger" onclick="confirmReset()">↺ Limpiar</button>
+</div>
+
+<div class="card">
+  <h2>Datos de la visita</h2>
+  <div class="field"><label>Fecha</label><input type="date" data-k="meta_fecha"></div>
+  <div class="field"><label>Hora inicio / fin</label><input type="text" data-k="meta_hora" placeholder="Ej: 7:00 AM – 4:30 PM"></div>
+  <div class="field"><label>Responsable</label><input type="text" data-k="meta_resp" placeholder="Nombre y matrícula profesional"></div>
+  <div class="field"><label>Acompañantes</label><textarea data-k="meta_acomp" placeholder="Titular minero, operarios, piloto del dron, etc."></textarea></div>
+  <div class="field"><label>Condiciones climáticas</label><input type="text" data-k="meta_clima" placeholder="Soleado, lluvia, neblina, viento..."></div>
+  <div class="field"><label>Equipos usados</label><input type="text" data-k="meta_equipos" placeholder="Dron DJI, GPS celular, cámara..."></div>
+</div>
+
+<div class="alert">
+  💡 <strong>Cómo usar:</strong> Toca SÍ/NO/N/A, escribe observaciones y toma fotos (con GPS automático). Todo se guarda en este dispositivo. Al final usa <em>Exportar PDF</em>.
+</div>
+
+<div id="content"></div>
+
+<div class="card">
+  <h2>Hallazgos y compromisos</h2>
+  <div class="field"><label>Hallazgos prioritarios</label><textarea data-k="hallazgos" placeholder="Resumen de los hallazgos más críticos" style="min-height: 80px;"></textarea></div>
+  <div class="field"><label>Compromisos del titular (con fechas)</label><textarea data-k="compromisos" placeholder="1. ...&#10;2. ...&#10;3. ..." style="min-height: 80px;"></textarea></div>
+</div>
+
+<button class="fab" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<div class="save" id="si">✓</div>
+
+<div class="modal" id="mod">
+  <div class="mbox">
+    <h3 id="mt"></h3>
+    <div id="mc"></div>
+    <div class="macts" id="ma"></div>
+  </div>
+</div>
+
+<div class="modal" id="phmod">
+  <div class="mbox">
+    <h3>Foto</h3>
+    <img class="mprev" id="phprev" alt="">
+    <div class="gpsst" id="gst">📍 Obteniendo coordenadas...</div>
+    <div class="mfield"><label>Latitud</label><input type="text" id="phlat" inputmode="decimal" placeholder="7.896728"></div>
+    <div class="mfield"><label>Longitud</label><input type="text" id="phlon" inputmode="decimal" placeholder="-75.251200"></div>
+    <div class="mfield"><label>Descripción (opcional)</label><input type="text" id="phdesc" placeholder="Ej: Frente 1A, vista panorámica"></div>
+    <div class="macts">
+      <button onclick="cancelPhoto()">Cancelar</button>
+      <button class="primary" onclick="savePhoto()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="vmod">
+  <div class="mbox" style="max-width:480px;">
+    <h3>Foto</h3>
+    <img class="mprev" id="vimg" style="max-height:320px;" alt="">
+    <div id="vinfo" style="font-size:12px;color:#4b5563;margin-bottom:10px;"></div>
+    <div class="macts"><button onclick="document.getElementById('vmod').classList.remove('show')">Cerrar</button></div>
+  </div>
+</div>
+
+<script>
+// ============ DATOS ============
+// Marcadores: c=crítico, m=métodos (v=VIS, d=DRON, g=GPS)
+var SECS = [
+  {t:"0. Preparación previa", s:[{i:[
+    {x:"Cargar baterías de dron (4-5 baterías para 6 vuelos)"},
+    {x:"Descargar mapas offline de la zona"},
+    {x:"Cargar coordenadas del EIA en celular (centro polígono y 4 vértices)"},
+    {x:"Verificar permiso aeronáutico del dron (espacio aéreo Caucasia)"}
+  ]}]},
+  {t:"1. Cap. 2 – Descripción del proyecto", s:[
+    {t:"1.1 Localización (TdR 2.1)", i:[
+      {x:"Sobrevuelo perimetral del polígono ARE → ortomosaico general",m:"d"},
+      {x:"Tomar coordenadas en 4 vértices y comparar con Tabla 14 corregida",m:"g"},
+      {x:"Coordenadas del punto de ingreso al ARE (3 km al E y 1 km al S de vía Guarumo–Caucasia)",m:"g"},
+      {x:"Confirmar jurisdicción municipal real de cada frente (Cáceres o Caucasia) — verificar mojón limítrofe o señalización",m:"v",c:1},
+      {x:"Asentamientos humanos y equipamientos visibles en buffer de 1 km",m:"dv"},
+      {x:"Verificar curvas de nivel reales vs planos del EIA",m:"d"},
+      {x:"Vías terciarias, secundarias y principales que sirven al proyecto",m:"dg"}
+    ]},
+    {t:"1.2 Diseño del proyecto (TdR 2.3)", i:[
+      {x:"Número de frentes activos (de los 6: 1A, 2A, 1B, 2B, 3A, 3B)",m:"dg"},
+      {x:"Áreas de beneficio: ubicación de plantas móviles",m:"dg"},
+      {x:"Áreas de manejo de material sobrante: ubicación y volumen aparente",m:"dg"},
+      {x:"Áreas de soporte: campamento, talleres, almacén combustible, bodegas",m:"dv"},
+      {x:"Geometría de la explotación: vista en planta de cada frente",m:"d"},
+      {x:"Altura aparente de bancos (EIA dice 10 m)",m:"d"},
+      {x:"Bancos de 100 x 100 m con 3 niveles",m:"d"},
+      {x:"Ángulo de talud aparente y ancho de berma",m:"d"},
+      {x:"Método de bancos descendentes con retrollenado (backfilling) aplicado",m:"v"},
+      {x:"Cunetas de coronación y de pie de talud presentes y en buen estado",m:"dv"},
+      {x:"Maquinaria operando: retros CAT 360CG y Hyundai R260LC (placa, año)",m:"v"},
+      {x:"Volquetas 14 m³ (cantidad, placas)",m:"v"},
+      {x:"Bulldozer para descapote (marca, modelo)",m:"v"},
+      {x:"Generador eléctrico (kVA, ubicación, combustible)",m:"v"},
+      {x:"Maquinaria adicional NO declarada en el EIA (listar con foto)",m:"v"},
+      {x:"Iluminación artificial nocturna (ubicación y orientación)",m:"v"}
+    ]},
+    {t:"1.3 Beneficio y transformación (TdR 2.4)", i:[
+      {x:"Confirmar que NO se usa mercurio ni cianuro (buscar evidencia: tanques, retortas, olores, residuos) — Ley 1658/2013",m:"v",c:1},
+      {x:"Altura de la clasificadora ~12 m",m:"v"},
+      {x:"Flujograma de operaciones identificable en sitio: lavado, reducción, clasificación, concentración",m:"v"},
+      {x:"Disposición de colas: ubicación, tipo (escombrera, pila, tanque)",m:"vg"},
+      {x:"Estructuras de contención de colas (revestimiento, dique)",m:"d"}
+    ]},
+    {t:"1.4 Insumos (TdR 2.5)", i:[
+      {x:"Materiales pétreos almacenados (cantidad estimada)",m:"v"},
+      {x:"Aceites, grasas, disolventes: cantidad y almacenamiento",m:"v"},
+      {x:"Tipo de combustible: canecas de 60 gal + tanque",m:"v"},
+      {x:"Tipo de fuente de energía (generador, red eléctrica, mixta)",m:"v"}
+    ]},
+    {t:"1.5 Infraestructura interceptada (TdR 2.6)", i:[
+      {x:"Redes eléctricas, postes, líneas que cruzan el polígono",m:"dv"},
+      {x:"Vías nacionales/secundarias/terciarias afectadas",m:"d"},
+      {x:"Predios vecinos: uso visible (vivienda, agropecuario, dotacional)",m:"v"},
+      {x:"Distritos de riego o acequias",m:"d"}
+    ]},
+    {t:"1.6 Manejo de sobrantes y residuos (TdR 2.7)", i:[
+      {x:"Depósitos de estériles: ubicación, geometría, tipo",m:"dg"},
+      {x:"Obras de drenaje en depósitos (subdrenajes, cunetas)",m:"d"},
+      {x:"Cobertura vegetal en taludes de depósitos antiguos",m:"v"},
+      {x:"Cuarto de residuos: ventilación, señalización Res. 2184/2019",m:"v"},
+      {x:"Puntos ecológicos en campamento y frentes (blanco, negro, verde, rojo)",m:"v"}
+    ]}
+  ]},
+  {t:"2. Cap. 3 – Áreas de influencia", s:[{i:[
+    {x:"Cuenca del río Man (límite visual del AI hidrológica)",m:"dv"},
+    {x:"Ecosistemas/coberturas circundantes (bosques, potreros, cultivos)",m:"dv"},
+    {x:"Distancia visual a viviendas/escuelas/iglesias más cercanas",m:"d"}
+  ]}]},
+  {t:"3. Cap. 4 – Medio abiótico", s:[
+    {t:"3.1 Geología (TdR 4.1)", i:[
+      {x:"Tipo de rocas/depósitos aflorantes en frentes (aluvial, coluvial, terraza)",m:"dv"},
+      {x:"Posición estructural visible (estratos, fallas, pliegues) — foto documental",m:"v"}
+    ]},
+    {t:"3.2 Geomorfología y geotecnia (TdR 4.2)", i:[
+      {x:"Geoformas dominantes (colinas, terrazas, llanura aluvial)",m:"dv"},
+      {x:"Rangos de pendientes aparentes",m:"d"},
+      {x:"Procesos erosivos activos (cárcavas, surcos) — vista cenital",m:"d"},
+      {x:"Procesos de remoción en masa (deslizamientos, caídas, flujos)",m:"d"},
+      {x:"Estabilidad de taludes: grietas, escarpes, infiltraciones",m:"dv"}
+    ]},
+    {t:"3.3 Paisaje (TdR 4.3)", i:[
+      {x:"Calidad visual del paisaje: panorámicas desde 4 puntos cardinales",m:"d"},
+      {x:"Cicatriz minera visible: extensión, contraste, visibilidad desde vía pública",m:"d"}
+    ]},
+    {t:"3.4 Suelos y uso de la tierra (TdR 4.4)", i:[
+      {x:"Uso actual del suelo en AI: cultivos, ganadería, bosque, minería",m:"dv"},
+      {x:"Pilas de suelo orgánico (descapote): ubicación, altura, cobertura",m:"v"},
+      {x:"Erosión activa en taludes y áreas descubiertas",m:"d"}
+    ]},
+    {t:"3.5 Hidrología (TdR 4.5)", i:[
+      {x:"Río Man: punto de captación (coordenadas, aspecto del agua, caudal aparente)",m:"vg"},
+      {x:"Río Man: punto de vertimiento (coordenadas, comparación con captación)",m:"vg"},
+      {x:"Trayecto del río Man dentro del polígono: meandros, islas, zonas erosionadas",m:"d"},
+      {x:"Quebradas, jagüeyes, nacimientos identificados",m:"vg"},
+      {x:"Sedimentación aparente aguas abajo del vertimiento (50-200 m)",m:"d"},
+      {x:"Ronda hídrica del río Man (franja 30 m): invasión por labores",m:"v"},
+      {x:"Presencia de canal trapezoidal de descarga (1,5 L/s Cap. 7)",m:"v"},
+      {x:"Medidor de caudal en captación (existe / no existe)",m:"v"}
+    ]},
+    {t:"3.6 Calidad del agua (TdR 4.6)", i:[
+      {x:"Piscinas de sedimentación: cantidad, dimensiones aparentes, estado de lodos",m:"v"},
+      {x:"Vista cenital de piscinas (colmatación visible)",m:"d"}
+    ]},
+    {t:"3.7 Hidrogeología (TdR 4.8)", i:[
+      {x:"Identificación visual de manantiales/nacimientos en AID",m:"dg"},
+      {x:"Profundidad estimada del nivel freático en frentes (agua en piso de excavación)",m:"v"}
+    ]},
+    {t:"3.8 Atmósfera y meteorología (TdR 4.9.1)", i:[
+      {x:"Condición climática del día (soleado, lluvia, neblina, viento)",m:"v"},
+      {x:"Dirección aparente del viento (hacia dónde se mueven polvo y humo)",m:"v"}
+    ]},
+    {t:"3.9 Emisiones atmosféricas (TdR 4.9.2)", i:[
+      {x:"Fuentes de polvo: vías internas, descapote, pilas, frentes activos",m:"dv"},
+      {x:"Receptores sensibles en radio de 3 km: viviendas, escuelas, salones",m:"dv"},
+      {x:"Medidas de control de polvo: humectación de vías, lonas en pilas",m:"v"}
+    ]},
+    {t:"3.10 Ruido (TdR 4.9.4)", i:[
+      {x:"Fuentes de ruido georreferenciadas (retros, bombas, generador, planta)",m:"vg"},
+      {x:"Distancia desde frente más ruidoso al receptor más cercano",m:"vg"}
+    ]}
+  ]},
+  {t:"4. Cap. 5 – Medio biótico", s:[
+    {t:"4.1 Flora (TdR 5.1.1)", i:[
+      {x:"Coberturas vegetales en AI: bosque, rastrojo, pastos, área intervenida",m:"d"},
+      {x:"Áreas con aprovechamiento forestal previo (cicatrices visibles)",m:"d"},
+      {x:"Especies vedadas visibles en bordes (cativo, abarco, caoba, cedro) — foto",m:"v"},
+      {x:"Áreas de reforestación con acacia: extensión, densidad aparente, sobrevivencia",m:"d"},
+      {x:"Altura y DAP estimado de árboles representativos en parche conservado",m:"v"}
+    ]},
+    {t:"4.2 Fauna (TdR 5.1.2)", i:[
+      {x:"Evidencia de fauna: huellas, heces, nidos, madrigueras — foto",m:"v"},
+      {x:"Posibles corredores ecológicos: parches de bosque conectados",m:"d"}
+    ]},
+    {t:"4.3 Ecosistemas acuáticos (TdR 5.2)", i:[
+      {x:"Río Man: color, transparencia, peces visibles, vegetación riparia",m:"v"},
+      {x:"Vegetación riparia: continuidad, perturbación",m:"d"}
+    ]},
+    {t:"4.4 Áreas protegidas (TdR 5.3)", i:[
+      {x:"Humedales o cuerpos de agua lénticos en AI",m:"dv"},
+      {x:"Rondas de río Man visibles (mínimo 30 m de franja)",m:"dv"}
+    ]}
+  ]},
+  {t:"5. Predios (verificación física)", s:[{i:[
+    {x:"Otros predios afectados además del declarado (1202003000000600003) — recorrer linderos",m:"v",c:1},
+    {x:"Viviendas dentro del polígono o a menos de 200 m del frente",m:"dv"}
+  ]}]},
+  {t:"6. Cap. 7 – Trámites (evidencia física)", s:[{i:[
+    {x:"Permiso de vertimientos: evidencia física de descarga al río",m:"v",c:1},
+    {x:"Ocupación de cauces: bocatoma, cunetas, canal",m:"v",c:1}
+  ]}]},
+  {t:"7. Cap. 8 – Zonificación ambiental", s:[{i:[
+    {x:"Zonas de alta sensibilidad: rondas hídricas, parches de bosque, taludes inestables",m:"dv"},
+    {x:"Zonas de sensibilidad media: pastizales, áreas en restauración",m:"dv"},
+    {x:"Zonas de baja sensibilidad: áreas ya intervenidas, vías",m:"dv"}
+  ]}]},
+  {t:"8. Cap. 9 – Evaluación ambiental", s:[{i:[
+    {x:"Actividades previas: minería ancestral, ganadería, agricultura (huellas visibles)",m:"v"},
+    {x:"Áreas ya intervenidas: extensión real (comparar con planos)",m:"dv"},
+    {x:"Cambios morfológicos: pilas, depresiones, vías, taludes",m:"d"},
+    {x:"Áreas a intervenir según PTO: cobertura actual",m:"dv"}
+  ]}]},
+  {t:"9. Cap. 10 – Zonificación de manejo", s:[{i:[
+    {x:"Áreas de intervención (donde sí se puede minar)",m:"dv"},
+    {x:"Áreas de intervención con restricciones (rondas, taludes, parches forestales)",m:"dv"},
+    {x:"Áreas de exclusión (nacimientos, viviendas cercanas, reservas)",m:"dv"}
+  ]}]},
+  {t:"10. Cap. 11 – PMA, riesgo, cierre", s:[
+    {t:"10.1 PMA implementación visible", i:[
+      {x:"Programa de manejo de aguas (piscinas, cunetas)",m:"v"},
+      {x:"Programa de manejo de residuos (puntos ecológicos, cuarto)",m:"v"},
+      {x:"Programa de manejo de suelo orgánico (pilas con cobertura)",m:"v"},
+      {x:"Programa de revegetación (áreas reforestadas)",m:"dv"},
+      {x:"Programa de manejo de ruido (silenciadores, barreras)",m:"v"}
+    ]},
+    {t:"10.2 Gestión del riesgo (Ley 1523/2012)", i:[
+      {x:"Puntos críticos de riesgo (taludes inestables, almacenamiento de combustible)",m:"v"},
+      {x:"Kit antiderrame, extintores, botiquín, camillas (ubicación y vigencia)",m:"v"},
+      {x:"Señalización de rutas de evacuación y punto de encuentro",m:"v"}
+    ]},
+    {t:"10.3 Plan de cierre", i:[
+      {x:"Áreas ya cerradas en restauración (extensión, especies, estado)",m:"dv"},
+      {x:"Retrollenado en frentes agotados (evidencia visible)",m:"v"}
+    ]}
+  ]}
+];
+
+// ============ ESTADO ============
+var KEY = "checklist_aretb816011_v3";
+var PHKEY = "checklist_photos_v3";
+var state = {};
+var photos = {};
+
+try { state = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch(e) { state = {}; }
+try { photos = JSON.parse(localStorage.getItem(PHKEY) || "{}"); } catch(e) { photos = {}; }
+
+function saveState() {
+  try {
+    localStorage.setItem(KEY, JSON.stringify(state));
+  } catch(e) {
+    console.error("Error guardando estado:", e);
+  }
+  showSave();
+  updateProgress();
+}
+
+function savePhotos() {
+  try {
+    localStorage.setItem(PHKEY, JSON.stringify(photos));
+  } catch(e) {
+    alert("Almacenamiento lleno. Exporta a PDF y elimina algunas fotos para continuar.");
+    throw e;
+  }
+}
+
+var saveTimer = null;
+function showSave(text, proc) {
+  text = text || "✓ Guardado";
+  clearTimeout(saveTimer);
+  var el = document.getElementById("si");
+  el.textContent = text;
+  el.classList.toggle("proc", !!proc);
+  el.classList.add("show");
+  if (!proc) saveTimer = setTimeout(function(){ el.classList.remove("show"); }, 1000);
+}
+
+// ============ COMPRESIÓN AGRESIVA ============
+function compressImg(file) {
+  return new Promise(function(resolve, reject) {
+    var reader = new FileReader();
+    reader.onerror = function(){ reject(new Error("Lectura fallida")); };
+    reader.onload = function(e) {
+      var img = new Image();
+      img.onerror = function(){ reject(new Error("Imagen inválida")); };
+      img.onload = function() {
+        // Compresión agresiva: máx 900px y calidad 65%
+        var maxW = 900;
+        var w = img.width, h = img.height;
+        if (w > maxW || h > maxW) {
+          if (w > h) { h = Math.round(h*maxW/w); w = maxW; }
+          else { w = Math.round(w*maxW/h); h = maxW; }
+        }
+        var canvas = document.createElement("canvas");
+        canvas.width = w; canvas.height = h;
+        var ctx = canvas.getContext("2d");
+        ctx.fillStyle = "white";
+        ctx.fillRect(0,0,w,h);
+        ctx.drawImage(img, 0, 0, w, h);
+        try {
+          var dataUrl = canvas.toDataURL("image/jpeg", 0.65);
+          resolve(dataUrl);
+        } catch(err) {
+          reject(err);
+        }
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+// ============ GPS ============
+function getGPS() {
+  return new Promise(function(resolve) {
+    if (!navigator.geolocation) {
+      resolve({ok:false, error:"GPS no disponible"});
+      return;
+    }
+    var done = false;
+    var timeout = setTimeout(function(){
+      if (!done) { done = true; resolve({ok:false, error:"Tiempo agotado"}); }
+    }, 12000);
+    navigator.geolocation.getCurrentPosition(
+      function(pos) {
+        if (done) return;
+        done = true; clearTimeout(timeout);
+        resolve({ok:true, lat:pos.coords.latitude, lon:pos.coords.longitude, acc:pos.coords.accuracy});
+      },
+      function(err) {
+        if (done) return;
+        done = true; clearTimeout(timeout);
+        var msg = "Sin ubicación";
+        if (err.code === 1) msg = "Permiso denegado. Permite ubicación en ajustes.";
+        else if (err.code === 2) msg = "Sin señal GPS";
+        else if (err.code === 3) msg = "Tiempo agotado";
+        resolve({ok:false, error:msg});
+      },
+      { enableHighAccuracy:true, timeout:12000, maximumAge:30000 }
+    );
+  });
+}
+
+// ============ FOTO ============
+var curPhoto = null;
+
+function onPhotoSelect(input, key) {
+  var file = input.files[0];
+  if (!file) return;
+  input.value = "";
+  showSave("Procesando...", true);
+  compressImg(file).then(function(dataUrl){
+    document.getElementById("phprev").src = dataUrl;
+    document.getElementById("phlat").value = "";
+    document.getElementById("phlon").value = "";
+    document.getElementById("phdesc").value = "";
+    var gst = document.getElementById("gst");
+    gst.className = "gpsst load";
+    gst.textContent = "📍 Obteniendo GPS...";
+    curPhoto = { key:key, dataUrl:dataUrl };
+    document.getElementById("phmod").classList.add("show");
+    showSave("✓ Listo");
+    getGPS().then(function(gps){
+      if (gps.ok) {
+        document.getElementById("phlat").value = gps.lat.toFixed(6);
+        document.getElementById("phlon").value = gps.lon.toFixed(6);
+        gst.className = "gpsst ok";
+        gst.textContent = "✓ GPS obtenido (±" + Math.round(gps.acc) + " m)";
+        curPhoto.gps = gps;
+      } else {
+        gst.className = "gpsst err";
+        gst.textContent = "⚠ " + gps.error;
+      }
+    });
+  }).catch(function(e){
+    showSave("✗ Error");
+    alert("Error procesando foto: " + e.message);
+  });
+}
+
+function cancelPhoto() {
+  document.getElementById("phmod").classList.remove("show");
+  curPhoto = null;
+}
+
+function savePhoto() {
+  if (!curPhoto) return;
+  var lat = document.getElementById("phlat").value.trim();
+  var lon = document.getElementById("phlon").value.trim();
+  var desc = document.getElementById("phdesc").value.trim();
+  var photo = {
+    id: "p_" + Date.now() + "_" + Math.floor(Math.random()*9999),
+    dataUrl: curPhoto.dataUrl,
+    lat: lat || null,
+    lon: lon || null,
+    desc: desc || "",
+    t: Date.now(),
+    acc: curPhoto.gps ? curPhoto.gps.acc : null
+  };
+  if (!photos[curPhoto.key]) photos[curPhoto.key] = [];
+  photos[curPhoto.key].push(photo);
+  try {
+    savePhotos();
+    renderPhotos(curPhoto.key);
+    document.getElementById("phmod").classList.remove("show");
+    curPhoto = null;
+    showSave("✓ Foto guardada");
+  } catch(e) {
+    // Si falla, quitar la foto
+    photos[curPhoto.key].pop();
+  }
+}
+
+function deletePhoto(id, key) {
+  if (!confirm("¿Eliminar esta foto?")) return;
+  if (!photos[key]) return;
+  photos[key] = photos[key].filter(function(p){ return p.id !== id; });
+  savePhotos();
+  renderPhotos(key);
+  showSave("✓ Eliminada");
+}
+
+function viewPhoto(id, key) {
+  if (!photos[key]) return;
+  var p = null;
+  for (var i = 0; i < photos[key].length; i++) {
+    if (photos[key][i].id === id) { p = photos[key][i]; break; }
+  }
+  if (!p) return;
+  document.getElementById("vimg").src = p.dataUrl;
+  var fecha = new Date(p.t).toLocaleString("es-CO");
+  var info = "<strong>Tomada:</strong> " + esc(fecha) + "<br>";
+  if (p.lat && p.lon) {
+    info += "<strong>Coordenadas:</strong> " + esc(p.lat) + ", " + esc(p.lon) + "<br>";
+    if (p.acc) info += "<strong>Precisión:</strong> ±" + Math.round(p.acc) + " m<br>";
+  } else {
+    info += "<strong>Coordenadas:</strong> <em>no registradas</em><br>";
+  }
+  if (p.desc) info += "<strong>Descripción:</strong> " + esc(p.desc);
+  document.getElementById("vinfo").innerHTML = info;
+  document.getElementById("vmod").classList.add("show");
+}
+
+function renderPhotos(key) {
+  var container = document.getElementById("photos_" + key);
+  if (!container) return;
+  var arr = photos[key] || [];
+  var countEl = document.getElementById("count_" + key);
+  if (countEl) {
+    countEl.textContent = arr.length === 0 ? "Sin fotos" : arr.length + " foto" + (arr.length===1?"":"s");
+    countEl.classList.toggle("empty", arr.length === 0);
+  }
+  if (arr.length === 0) { container.innerHTML = ""; return; }
+  var html = "";
+  for (var i = 0; i < arr.length; i++) {
+    var p = arr[i];
+    var hasGps = p.lat && p.lon;
+    var gpsT = hasGps ? parseFloat(p.lat).toFixed(4) + "<br>" + parseFloat(p.lon).toFixed(4) : "Sin GPS";
+    html += '<div class="ph-t">' +
+      '<img src="' + p.dataUrl + '" alt="" onclick="viewPhoto(\'' + p.id + '\',\'' + key + '\')">' +
+      '<button class="del" onclick="event.stopPropagation();deletePhoto(\'' + p.id + '\',\'' + key + '\')">×</button>' +
+      '<div class="gps ' + (hasGps?'':'no') + '">' + gpsT + '</div>' +
+    '</div>';
+  }
+  container.innerHTML = html;
+}
+
+// ============ MÉTODOS ============
+function methodTags(m) {
+  if (!m) return "";
+  var html = '<span class="methods">';
+  if (m.indexOf("v") >= 0) html += '<span class="m-tag m-vis">👁️ VIS</span>';
+  if (m.indexOf("d") >= 0) html += '<span class="m-tag m-dron">🚁 DRON</span>';
+  if (m.indexOf("g") >= 0) html += '<span class="m-tag m-gps">📍 GPS</span>';
+  html += '</span>';
+  return html;
+}
+
+// ============ RENDER ============
+var content = document.getElementById("content");
+var itemId = 0;
+var totalItems = 0;
+var allKeys = [];
+
+for (var si = 0; si < SECS.length; si++) {
+  var sec = SECS[si];
+  var section = document.createElement("section");
+  section.className = "sec";
+  if (state["sec_" + si]) section.classList.add("col");
+
+  var head = document.createElement("div");
+  head.className = "sec-head";
+  head.innerHTML = '<h2>' + esc(sec.t) + '</h2><div class="right"><span class="badge" id="bdg_' + si + '">0/0</span><span class="chev">▼</span></div>';
+  (function(idx, sect){
+    head.addEventListener("click", function(){
+      sect.classList.toggle("col");
+      state["sec_" + idx] = sect.classList.contains("col");
+      saveState();
+    });
+  })(si, section);
+  section.appendChild(head);
+
+  var body = document.createElement("div");
+  body.className = "sec-body";
+
+  for (var ssi = 0; ssi < sec.s.length; ssi++) {
+    var sub = sec.s[ssi];
+    if (sub.t && sec.s.length > 1) {
+      var h = document.createElement("div");
+      h.className = "subsec";
+      h.textContent = sub.t;
+      body.appendChild(h);
+    }
+    for (var ii = 0; ii < sub.i.length; ii++) {
+      var item = sub.i[ii];
+      var id = "i_" + itemId;
+      itemId++;
+      totalItems++;
+      allKeys.push(id);
+
+      var div = document.createElement("div");
+      div.className = "item" + (item.c ? " item-crit" : "");
+      div.setAttribute("data-sec", si);
+      div.setAttribute("data-key", id);
+
+      var txt = document.createElement("div");
+      txt.className = "item-text";
+      var critTag = item.c ? '<span class="m-tag m-crit">⚠ CRÍTICO</span> ' : "";
+      txt.innerHTML = critTag + methodTags(item.m) + esc(item.x);
+      div.appendChild(txt);
+
+      // Botones
+      var row = document.createElement("div");
+      row.className = "check-row";
+      var vals = ["si","no","na"];
+      var labels = ["SÍ","NO","N/A"];
+      (function(itemId, rowEl, divEl){
+        for (var vi = 0; vi < vals.length; vi++) {
+          (function(val, label){
+            var btn = document.createElement("button");
+            btn.className = "cb";
+            btn.textContent = label;
+            if (state[itemId] === val) btn.classList.add("on-" + val);
+            btn.addEventListener("click", function(){
+              if (state[itemId] === val) {
+                delete state[itemId];
+                btn.classList.remove("on-" + val);
+              } else {
+                state[itemId] = val;
+                var all = rowEl.querySelectorAll(".cb");
+                for (var k = 0; k < all.length; k++) {
+                  all[k].classList.remove("on-si","on-no","on-na");
+                }
+                btn.classList.add("on-" + val);
+              }
+              saveState();
+            });
+            rowEl.appendChild(btn);
+          })(vals[vi], labels[vi]);
+        }
+      })(id, row, div);
+      div.appendChild(row);
+
+      // Observaciones
+      var obsW = document.createElement("div");
+      obsW.className = "obs-w";
+      obsW.innerHTML = '<label class="obs-l">📝 Observaciones</label>';
+      var obs = document.createElement("textarea");
+      obs.className = "obs";
+      obs.placeholder = "Coordenada, dato, hallazgo...";
+      obs.value = state["o_" + id] || "";
+      if (obs.value.trim()) obs.classList.add("has-content");
+      (function(itemId, obsEl){
+        obsEl.addEventListener("input", function(){
+          state["o_" + itemId] = obsEl.value;
+          if (obsEl.value.trim()) obsEl.classList.add("has-content");
+          else obsEl.classList.remove("has-content");
+          saveState();
+        });
+      })(id, obs);
+      obsW.appendChild(obs);
+      div.appendChild(obsW);
+
+      // Fotos
+      var phW = document.createElement("div");
+      phW.className = "ph-w";
+      phW.innerHTML = '<div class="ph-l"><span>📷 Fotos con GPS</span><span class="ph-c empty" id="count_' + id + '">Sin fotos</span></div>' +
+        '<div class="ph-grid" id="photos_' + id + '"></div>';
+
+      var addBtn = document.createElement("label");
+      addBtn.className = "ph-add";
+      addBtn.innerHTML = '<span>📸</span><span>Tomar foto</span>';
+      var fileInput = document.createElement("input");
+      fileInput.type = "file";
+      fileInput.accept = "image/*";
+      fileInput.setAttribute("capture", "environment");
+      (function(itemId, fi){
+        fi.addEventListener("change", function(){ onPhotoSelect(fi, itemId); });
+      })(id, fileInput);
+      addBtn.appendChild(fileInput);
+      phW.appendChild(addBtn);
+      div.appendChild(phW);
+
+      body.appendChild(div);
+    }
+  }
+
+  section.appendChild(body);
+  content.appendChild(section);
+}
+
+// Cargar fotos
+for (var i = 0; i < allKeys.length; i++) {
+  renderPhotos(allKeys[i]);
+}
+
+// ============ CAMPOS META ============
+var metaInputs = document.querySelectorAll("[data-k]");
+for (var i = 0; i < metaInputs.length; i++) {
+  (function(el){
+    el.value = state[el.getAttribute("data-k")] || "";
+    el.addEventListener("input", function(){
+      state[el.getAttribute("data-k")] = el.value;
+      saveState();
+    });
+  })(metaInputs[i]);
+}
+
+// ============ PROGRESO ============
+function updateProgress() {
+  var done = 0;
+  var secStats = {};
+  for (var i = 0; i < SECS.length; i++) secStats[i] = {d:0,t:0};
+  var items = document.querySelectorAll(".item");
+  for (var i = 0; i < items.length; i++) {
+    var k = items[i].getAttribute("data-key");
+    var s = items[i].getAttribute("data-sec");
+    secStats[s].t++;
+    if (state[k]) { done++; secStats[s].d++; }
+  }
+  var pct = totalItems === 0 ? 0 : Math.round(done/totalItems*100);
+  document.getElementById("bf").style.width = pct + "%";
+  document.getElementById("pt").textContent = done + " de " + totalItems + " ítems";
+  document.getElementById("pp").textContent = pct + "%";
+  for (var k in secStats) {
+    var b = document.getElementById("bdg_" + k);
+    if (b) {
+      b.textContent = secStats[k].d + "/" + secStats[k].t;
+      if (secStats[k].d === secStats[k].t && secStats[k].t > 0) b.style.background = "#16a34a";
+      else if (secStats[k].d > 0) b.style.background = "rgba(255,255,255,0.3)";
+      else b.style.background = "rgba(255,255,255,0.15)";
+    }
+  }
+}
+updateProgress();
+
+// ============ UI ============
+function collapseAll() {
+  var ss = document.querySelectorAll("section.sec");
+  for (var i = 0; i < ss.length; i++) { ss[i].classList.add("col"); state["sec_"+i]=true; }
+  saveState();
+}
+function expandAll() {
+  var ss = document.querySelectorAll("section.sec");
+  for (var i = 0; i < ss.length; i++) { ss[i].classList.remove("col"); state["sec_"+i]=false; }
+  saveState();
+}
+
+function showModal(title, html, actions) {
+  document.getElementById("mt").textContent = title;
+  document.getElementById("mc").innerHTML = html;
+  var ab = document.getElementById("ma");
+  ab.innerHTML = "";
+  for (var i = 0; i < actions.length; i++) {
+    (function(a){
+      var b = document.createElement("button");
+      b.textContent = a.label;
+      if (a.kind) b.classList.add(a.kind);
+      b.addEventListener("click", function(){
+        if (a.onClick) a.onClick();
+        document.getElementById("mod").classList.remove("show");
+      });
+      ab.appendChild(b);
+    })(actions[i]);
+  }
+  document.getElementById("mod").classList.add("show");
+}
+
+function confirmReset() {
+  showModal(
+    "¿Limpiar todo?",
+    "<p>Se borrarán todas las marcas, observaciones y fotos. No se puede deshacer.</p>",
+    [
+      { label:"Cancelar", onClick:function(){} },
+      { label:"Sí, borrar", kind:"danger", onClick:function(){
+        try {
+          localStorage.removeItem(KEY);
+          localStorage.removeItem(PHKEY);
+        } catch(e){}
+        location.reload();
+      }}
+    ]
+  );
+}
+
+function esc(s) {
+  if (s == null) return "";
+  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+}
+
+// Cerrar modales al tocar fuera
+var modals = ["mod","phmod","vmod"];
+for (var i = 0; i < modals.length; i++) {
+  (function(id){
+    document.getElementById(id).addEventListener("click", function(e){
+      if (e.target === e.currentTarget) e.currentTarget.classList.remove("show");
+    });
+  })(modals[i]);
+}
+
+// ============ EXPORTAR PDF ============
+function exportPDF() {
+  showSave("Preparando PDF...", true);
+  var fecha = state.meta_fecha || "(sin fecha)";
+  var hora = state.meta_hora || "—";
+  var resp = state.meta_resp || "—";
+  var acomp = state.meta_acomp || "—";
+  var clima = state.meta_clima || "—";
+  var equipos = state.meta_equipos || "—";
+
+  var stats = {si:0,no:0,na:0,sin:0,total:0};
+  var id = 0;
+  for (var si = 0; si < SECS.length; si++) {
+    for (var ssi = 0; ssi < SECS[si].s.length; ssi++) {
+      for (var ii = 0; ii < SECS[si].s[ssi].i.length; ii++) {
+        var v = state["i_" + id];
+        if (v === "si") stats.si++;
+        else if (v === "no") stats.no++;
+        else if (v === "na") stats.na++;
+        else stats.sin++;
+        stats.total++;
+        id++;
+      }
+    }
+  }
+
+  var totalFotos = 0;
+  var fotosConGps = 0;
+  for (var k in photos) {
+    if (photos[k]) {
+      totalFotos += photos[k].length;
+      for (var i = 0; i < photos[k].length; i++) {
+        if (photos[k][i].lat && photos[k][i].lon) fotosConGps++;
+      }
+    }
+  }
+
+  var pct = stats.total === 0 ? 0 : Math.round((stats.si+stats.no+stats.na)/stats.total*100);
+  var sectionsHtml = "";
+  id = 0;
+  for (var si = 0; si < SECS.length; si++) {
+    var sec = SECS[si];
+    var secItems = "";
+    var ss = {si:0,no:0,na:0,sin:0};
+    for (var ssi = 0; ssi < sec.s.length; ssi++) {
+      var sub = sec.s[ssi];
+      if (sec.s.length > 1 && sub.t) secItems += '<div class="ps">' + esc(sub.t) + '</div>';
+      for (var ii = 0; ii < sub.i.length; ii++) {
+        var item = sub.i[ii];
+        var k = "i_" + id;
+        var v = state[k];
+        var obs = state["o_" + k] || "";
+        var itemPhotos = photos[k] || [];
+        var badge = "";
+        if (v === "si") { badge = '<span class="pb pbsi">SÍ</span>'; ss.si++; }
+        else if (v === "no") { badge = '<span class="pb pbno">NO</span>'; ss.no++; }
+        else if (v === "na") { badge = '<span class="pb pbna">N/A</span>'; ss.na++; }
+        else { badge = '<span class="pb pbsin">—</span>'; ss.sin++; }
+        var critMark = item.c ? '<span class="pcrit">⚠ CRÍTICO</span> ' : "";
+        var obsHtml = obs.trim() ? '<div class="pobs"><strong>Obs:</strong> ' + esc(obs) + '</div>' : "";
+        var phHtml = "";
+        if (itemPhotos.length > 0) {
+          var ph = "";
+          for (var pi = 0; pi < itemPhotos.length; pi++) {
+            var p = itemPhotos[pi];
+            var hg = p.lat && p.lon;
+            var coords = hg ? parseFloat(p.lat).toFixed(5) + ", " + parseFloat(p.lon).toFixed(5) : "Sin GPS";
+            var fc = new Date(p.t).toLocaleString("es-CO", {day:"2-digit",month:"2-digit",year:"2-digit",hour:"2-digit",minute:"2-digit"});
+            var d = p.desc ? '<div class="pdsc">' + esc(p.desc) + '</div>' : "";
+            ph += '<div class="pph"><img src="' + p.dataUrl + '"><div class="ppi"><div class="ppn">#' + (pi+1) + '</div>' + d + '<div class="ppc ' + (hg?'':'ng') + '">📍 ' + esc(coords) + '</div><div class="ppd">' + esc(fc) + '</div></div></div>';
+          }
+          phHtml = '<div class="pphs"><div class="pphl">📷 ' + itemPhotos.length + ' foto' + (itemPhotos.length===1?"":"s") + '</div><div class="pphg">' + ph + '</div></div>';
+        }
+        secItems += '<div class="pit ' + (item.c?'pitc':'') + '"><div class="pih">' + badge + '<div class="pix">' + critMark + esc(item.x) + '</div></div>' + obsHtml + phHtml + '</div>';
+        id++;
+      }
+    }
+    sectionsHtml += '<section class="psec"><div class="psh"><h2>' + esc(sec.t) + '</h2><div class="pss">' + ss.si + ' SÍ · ' + ss.no + ' NO · ' + ss.na + ' N/A · ' + ss.sin + ' sin verificar</div></div>' + secItems + '</section>';
+  }
+
+  var hallazgos = state.hallazgos || "(Sin diligenciar)";
+  var compromisos = state.compromisos || "(Sin diligenciar)";
+
+  var html = '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>Visita ARE-TB8-16011 ' + esc(fecha) + '</title><style>' +
+    '@page{size:A4;margin:18mm 15mm 22mm 15mm;@bottom-center{content:"Página " counter(page) " de " counter(pages);font-size:9pt;color:#6b7280;}}' +
+    '*{box-sizing:border-box;}body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;color:#1f2937;font-size:10.5pt;line-height:1.4;margin:0;}' +
+    '.cov{page-break-after:always;text-align:center;padding-top:30mm;}' +
+    '.cov h1{font-size:24pt;color:#1F4E79;margin:0 0 8pt;font-weight:800;}' +
+    '.cov .st{font-size:14pt;color:#4b5563;margin-bottom:30pt;}' +
+    '.pbox{background:#f3f4f6;border:2px solid #1F4E79;border-radius:8px;padding:18pt;max-width:420pt;margin:0 auto 20pt;text-align:left;}' +
+    '.pbox h3{margin:0 0 10pt;color:#1F4E79;font-size:12pt;text-transform:uppercase;}' +
+    '.pbox .r{display:flex;padding:4pt 0;border-bottom:1px solid #e5e7eb;font-size:10pt;}' +
+    '.pbox .r:last-child{border-bottom:none;}' +
+    '.pbox .r .l{font-weight:700;color:#6b7280;width:120pt;text-transform:uppercase;font-size:9pt;}' +
+    '.pbox .r .v{flex:1;color:#1f2937;}' +
+    '.sum{page-break-after:always;padding-top:10mm;}' +
+    '.sum h1{color:#1F4E79;font-size:18pt;border-bottom:3px solid #1F4E79;padding-bottom:6pt;margin:0 0 16pt;}' +
+    '.sg{display:grid;grid-template-columns:1fr 1fr;gap:12pt;margin-bottom:14pt;}' +
+    '.sc{background:#f9fafb;border-left:4px solid #1F4E79;padding:12pt;border-radius:0 6pt 6pt 0;}' +
+    '.sc .n{font-size:22pt;font-weight:800;color:#1F4E79;}' +
+    '.sc .l{font-size:9pt;color:#6b7280;text-transform:uppercase;margin-top:4pt;}' +
+    '.sc.si{border-left-color:#16a34a;}.sc.si .n{color:#16a34a;}' +
+    '.sc.no{border-left-color:#dc2626;}.sc.no .n{color:#dc2626;}' +
+    '.sc.na{border-left-color:#6b7280;}.sc.na .n{color:#6b7280;}' +
+    '.sc.sn{border-left-color:#d97706;}.sc.sn .n{color:#d97706;}' +
+    '.sc.fo{border-left-color:#7c3aed;}.sc.fo .n{color:#7c3aed;}' +
+    '.pr{background:white;border:1px solid #e5e7eb;border-radius:6pt;padding:14pt;margin-bottom:16pt;}' +
+    '.pr .pc{font-size:28pt;font-weight:800;color:#1F4E79;}' +
+    '.pb-pdf{height:10pt;background:#e5e7eb;border-radius:5pt;overflow:hidden;margin-top:6pt;}' +
+    '.pb-pdf .fl{height:100%;background:#1F4E79;}' +
+    '.sum h2{color:#1F4E79;font-size:13pt;margin:16pt 0 8pt;border-bottom:1px solid #e5e7eb;padding-bottom:4pt;}' +
+    '.fnd{background:#fef3c7;border-left:4px solid #d97706;padding:12pt;white-space:pre-wrap;font-size:10pt;}' +
+    '.cmt{background:#eff6ff;border-left:4px solid #1F4E79;padding:12pt;white-space:pre-wrap;font-size:10pt;}' +
+    '.psec{margin-bottom:18pt;}' +
+    '.psh{background:#1F4E79;color:white;padding:10pt 14pt;border-radius:6pt 6pt 0 0;page-break-after:avoid;}' +
+    '.psh h2{margin:0;font-size:12pt;}.pss{font-size:9pt;opacity:0.9;margin-top:3pt;}' +
+    '.ps{background:#f3f4f6;color:#2E75B6;padding:6pt 14pt;font-size:9.5pt;font-weight:700;text-transform:uppercase;border-left:3pt solid #2E75B6;}' +
+    '.pit{padding:8pt 14pt;border-bottom:1px solid #f3f4f6;page-break-inside:avoid;}' +
+    '.pitc{background:#fffbeb;border-left:3pt solid #d97706;}' +
+    '.pih{display:flex;gap:8pt;align-items:flex-start;}' +
+    '.pb{flex-shrink:0;min-width:32pt;padding:3pt 7pt;border-radius:4pt;font-size:9pt;font-weight:700;text-align:center;color:white;}' +
+    '.pbsi{background:#16a34a;}.pbno{background:#dc2626;}.pbna{background:#6b7280;}.pbsin{background:#e5e7eb;color:#6b7280;}' +
+    '.pcrit{display:inline-block;background:#d97706;color:white;font-size:8pt;font-weight:700;padding:1pt 5pt;border-radius:3pt;margin-right:4pt;}' +
+    '.pix{flex:1;font-size:10pt;padding-top:2pt;}' +
+    '.pobs{margin-top:6pt;margin-left:40pt;padding:6pt 10pt;background:#ecfdf5;border-left:3pt solid #16a34a;font-size:9.5pt;color:#064e3b;}' +
+    '.pphs{margin-top:8pt;margin-left:40pt;padding:8pt;background:#faf5ff;border:1pt solid #e9d5ff;border-radius:4pt;page-break-inside:avoid;}' +
+    '.pphl{font-size:9pt;font-weight:700;color:#6b21a8;margin-bottom:6pt;text-transform:uppercase;}' +
+    '.pphg{display:grid;grid-template-columns:repeat(3,1fr);gap:6pt;}' +
+    '.pph{background:white;border:1pt solid #d8b4fe;border-radius:4pt;overflow:hidden;page-break-inside:avoid;}' +
+    '.pph img{width:100%;height:100pt;object-fit:cover;display:block;}' +
+    '.ppi{padding:4pt 6pt;font-size:7.5pt;line-height:1.3;}' +
+    '.ppn{font-weight:700;color:#6b21a8;font-size:8pt;}' +
+    '.pdsc{color:#1f2937;font-weight:500;margin:2pt 0;}' +
+    '.ppc{color:#047857;font-weight:600;font-family:"Courier New",monospace;font-size:7pt;}' +
+    '.ppc.ng{color:#92400e;font-style:italic;}' +
+    '.ppd{color:#9ca3af;font-size:7pt;}' +
+    '.sigp{page-break-before:always;padding-top:10mm;}' +
+    '.sigp h1{color:#1F4E79;font-size:18pt;border-bottom:3px solid #1F4E79;padding-bottom:6pt;margin:0 0 24pt;}' +
+    '.sgr{display:grid;grid-template-columns:1fr 1fr;gap:30pt;margin-top:60pt;}' +
+    '.sb{text-align:center;}.sl{border-top:1.5pt solid #1f2937;margin-bottom:6pt;padding-top:50pt;}' +
+    '.sr{font-weight:700;font-size:11pt;color:#1F4E79;}' +
+    '.sh{font-size:9pt;color:#6b7280;font-style:italic;margin-top:2pt;}' +
+    '.df{margin-top:50pt;padding-top:14pt;border-top:1px solid #e5e7eb;font-size:9pt;color:#9ca3af;text-align:center;}' +
+    '</style></head><body>' +
+    '<div class="cov"><h1>Visita Técnica Ambiental</h1><div class="st">Estudio de Impacto Ambiental</div>' +
+    '<div class="pbox"><h3>Información del proyecto</h3>' +
+    '<div class="r"><div class="l">Título minero</div><div class="v">ARE-TB8-16011</div></div>' +
+    '<div class="r"><div class="l">Ubicación</div><div class="v">Cáceres y Caucasia, Antioquia</div></div>' +
+    '<div class="r"><div class="l">Veredas</div><div class="v">Guarumo, Rio Man, El Man</div></div>' +
+    '<div class="r"><div class="l">Jurisdicción</div><div class="v">CORANTIOQUIA</div></div>' +
+    '<div class="r"><div class="l">Tipo</div><div class="v">Explotación de oro a cielo abierto</div></div>' +
+    '<div class="r"><div class="l">Fase</div><div class="v">Licencia ambiental temporal de formalización</div></div></div>' +
+    '<div class="pbox"><h3>Datos de la visita</h3>' +
+    '<div class="r"><div class="l">Fecha</div><div class="v">' + esc(fecha) + '</div></div>' +
+    '<div class="r"><div class="l">Hora</div><div class="v">' + esc(hora) + '</div></div>' +
+    '<div class="r"><div class="l">Responsable</div><div class="v">' + esc(resp) + '</div></div>' +
+    '<div class="r"><div class="l">Acompañantes</div><div class="v">' + esc(acomp) + '</div></div>' +
+    '<div class="r"><div class="l">Clima</div><div class="v">' + esc(clima) + '</div></div>' +
+    '<div class="r"><div class="l">Equipos</div><div class="v">' + esc(equipos) + '</div></div></div>' +
+    '<div style="margin-top:30pt;font-size:9pt;color:#9ca3af;">Generado el ' + new Date().toLocaleString("es-CO",{dateStyle:"long",timeStyle:"short"}) + '</div></div>' +
+    '<div class="sum"><h1>Resumen ejecutivo</h1>' +
+    '<div class="pr"><div style="display:flex;justify-content:space-between;align-items:baseline;"><div><div style="font-size:9pt;color:#6b7280;text-transform:uppercase;font-weight:700;">Avance</div><div class="pc">' + pct + '%</div></div><div style="text-align:right;font-size:10pt;color:#4b5563;">' + (stats.si+stats.no+stats.na) + ' de ' + stats.total + ' ítems<br>verificados</div></div>' +
+    '<div class="pb-pdf"><div class="fl" style="width:' + pct + '%"></div></div></div>' +
+    '<div class="sg">' +
+    '<div class="sc si"><div class="n">' + stats.si + '</div><div class="l">Cumple (SÍ)</div></div>' +
+    '<div class="sc no"><div class="n">' + stats.no + '</div><div class="l">No cumple (NO)</div></div>' +
+    '<div class="sc na"><div class="n">' + stats.na + '</div><div class="l">No aplica</div></div>' +
+    '<div class="sc sn"><div class="n">' + stats.sin + '</div><div class="l">Sin verificar</div></div></div>' +
+    '<div class="sg" style="grid-template-columns:1fr;"><div class="sc fo"><div class="n">' + totalFotos + '</div><div class="l">Fotografías adjuntadas (' + fotosConGps + ' con GPS)</div></div></div>' +
+    '<h2>Hallazgos prioritarios</h2><div class="fnd">' + esc(hallazgos) + '</div>' +
+    '<h2>Compromisos del titular</h2><div class="cmt">' + esc(compromisos) + '</div></div>' +
+    sectionsHtml +
+    '<div class="sigp"><h1>Firmas y cierre</h1>' +
+    '<p style="font-size:10.5pt;line-height:1.6;color:#4b5563;">Los firmantes hacen constar que la presente visita técnica fue realizada en las condiciones descritas. Las observaciones, hallazgos, fotografías y compromisos reflejan la situación encontrada en campo.</p>' +
+    '<div class="sgr"><div class="sb"><div class="sl"></div><div class="sr">Responsable de la visita</div><div class="sh">Nombre / C.C. / Matrícula</div></div>' +
+    '<div class="sb"><div class="sl"></div><div class="sr">Representante del titular</div><div class="sh">Nombre / C.C. / Cargo</div></div></div>' +
+    '<div class="df">Proyecto ARE-TB8-16011 · ' + esc(fecha) + '<br>' + totalFotos + ' fotografías incluidas</div></div>' +
+    '</body></html>';
+
+  var w = window.open("", "_blank");
+  if (!w) {
+    showModal("Pop-up bloqueado",
+      "<p>Permite los pop-ups para este sitio y vuelve a intentar.</p><p><strong>iPhone:</strong> Ajustes → Safari → desactivar 'Bloquear ventanas emergentes'.</p>",
+      [{label:"Entendido",onClick:function(){}}]);
+    return;
+  }
+  w.document.open();
+  w.document.write(html);
+  w.document.close();
+  w.onload = function(){
+    setTimeout(function(){
+      showSave("✓ PDF listo");
+      w.focus();
+      w.print();
+    }, 600);
+  };
+}
+</script>
+
+</body>
+</html>
